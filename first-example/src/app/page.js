@@ -1,6 +1,25 @@
 import Image from 'next/image'
 
+export function ColorButton(color) {
+
+    const buttonClassName = `transition ease-in durantion-500 group px-6 py-4 mx-10 border border-transparent rounded-lg bg-${ color.code }-900 text-${ color.code }-400 hover:bg-black hover:text-white hover:border-neutral-600`
+
+    return (
+      <button className={buttonClassName}
+        type='Submit'>
+          {color.label}
+        </button>
+    );
+}
+
 export default function Home() {
+  const colors = [
+    {code:'sky', label:'Sky Blue'},
+    {code:'emerald', label:'Emerald Green'},
+    {code:'red', label:'Basic red'},
+    {code:'yellow', label:'Basic yellow'}
+  ];
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
 
@@ -11,18 +30,9 @@ export default function Home() {
       </div>
 
       <div className="mb-32 mx-auto grid rounded-md max-w-5xl w-full mb-0 grid-cols-4">
-        <button className="group px-6 py-4 mx-10 border border-transparent rounded-lg bg-sky-900 text-sky-400 transition-colors ease-in durantion-5000 hover:bg-black hover:text-white hover:border-neutral-600" type="submit">
-          Sky Blue
-        </button>
-        <button className="group px-6 py-4 mx-10 border border-transparent rounded-lg bg-emerald-900 text-emerald-400 hover:bg-black hover:text-white hover:border-neutral-600" type="submit">
-          Emerald Green
-        </button>
-        <button className="group px-6 py-4 mx-10 border border-transparent rounded-lg bg-red-900 text-red-400 hover:bg-black hover:text-white hover:border-neutral-600" type="submit">
-          Basic Red
-        </button>
-        <button className="group px-6 py-4 mx-10 border border-transparent rounded-lg bg-yellow-900 text-yellow-400 hover:bg-black hover:text-white hover:border-neutral-600" type="submit">
-          Basic Yellow
-        </button>
+
+        {colors.map(ColorButton, this)}
+
       </div>
 
     </main>
