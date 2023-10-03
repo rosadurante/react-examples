@@ -4,9 +4,9 @@ const React = require('react');
 const TextImageBlock = function ({text, image}) {
 
     return (
-        <div class="TextImageBlock">
+        <div>
             <p>{text}</p>
-            <div class="image">
+            <div>
                 <img src={image.src} alt={image.alt} width={image.width} />
             </div>
         </div>
