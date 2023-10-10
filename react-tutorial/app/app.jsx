@@ -9,6 +9,7 @@ const { createBrowserRouter, createRoutesFromElements, RouterProvider } = requir
 // pages
 import HomePage from './pages/HomePage';
 import MainPage from './pages/MainPage';
+import ToDoListPage from './pages/ToDoListPage';
 import ContactMe from './pages/ContactMe';
 
 
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
         <Route>
             <Route path='/' element={<HomePage />}/>
             <Route path='/main-page' element={<MainPage />}/>
+            <Route path="/to-do-list" element={<ToDoListPage />}/>
             <Route path='/contact-me' element={<ContactMe />} />
         </Route>
     )

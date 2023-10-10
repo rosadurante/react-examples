@@ -7,6 +7,7 @@ const Navigation = function () {
         <nav><ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/main-page">MainPage</Link></li>
+            <li><Link to="/to-do-list">ToDoList</Link></li>
             <li><Link to='/contact-me'>ContactMe</Link></li>
         </ul></nav>
     )
