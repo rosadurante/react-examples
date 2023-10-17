@@ -1,45 +1,85 @@
 // react
 const React = require('react');
 
-const ToDoListBlock = function () {
+const { useReducer, useState } = require('react');
 
-    const items = [{
-        text: "bake a cake", index: 1, complete: false
+const itemsReducer = require('../reducers/itemsReducer');
+
+
+function ToDoListBlock() {
+
+    // Lista inicial
+    const initialItems = [{
+        text: "bake a cake", complete: false
     }, {
-        text: "clean the kitchen", index: 2, complete: true
+        text: "clean the kitchen", complete: true
     }, {
-        text: "go for a walk", index: 3, complete: true
+        text: "go for a walk", complete: true
     }, {
-        text: "visit a friend", index: 4, complete: false
+        text: "visit a friend", complete: false
     }];
+
+    // Obtención de la lista a mutar y la función dispatch
+    var [items, dispatch] = useReducer(
+        itemsReducer,
+        initialItems
+    );
+
+    // Manejadores de eventos "handlers"
+    function handleAddItem(text) {
+        dispatch({
+            type: 'added',
+            text: text,
+        });
+    };
+
+    function handleDeleteItem(index) {
+        dispatch({
+            type: 'deleted',
+            index: index
+        });
+    };
+
+    // control del estado/valor del input text.
+    const [ inputText, setText ] = useState('');
+
+    const handlers = {
+        delete: handleDeleteItem
+    };
 
     return (
         <div>
             <p>Here's your to do list</p>
 
             <div className="todoList">
+                <div className="addItem">
+                    <input placeholder="Add item..." value={inputText} 
+                    onChange={e => setText(e.target.value) } />
+                    <button className="add" onClick={() => {
+                        setText(''); handleAddItem(inputText);
+                    } }>Add</button>
+                </div>
                 <ul>
-                    {items.map(item =>
-                        <li className="item" key={item.index}>
-                            <ItemList text={item.text} index={item.index} complete={item.complete}></ItemList>
-                        </li>
+                    {items.map((item, index) => <li className="item" key={index}>
+                        <ItemList text={item.text} index={index} complete={item.complete} handlers={handlers}></ItemList>
+                    </li>
                     )}
                 </ul>
             </div>
 
         </div>
-    )
+    );
 }
 
-const ItemList = function ({text, index, complete}) {
+const ItemList = function ({text, index, complete, handlers}) {
     /* Text string, index number, complete boolean */
-
     return (
-        <div className="itemlist-{index}">
-            <input type="checkbox" checked={complete} />
+        <div className={"itemlist-${index}"}>
+            <input type="checkbox" defaultChecked={complete} />
             <span>{text}</span>
-            <button className="buttonup">Up</button>
-            <button className="buttondown">Down</button>
+            <button className="delete ${index}" onClick={() => {
+                handlers.delete(index);
+            }}>Delete</button>
         </div>
     )
 }
